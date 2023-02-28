@@ -33,7 +33,7 @@ public class Core {
                     this.gui.listThebook();
                     break;
                 case "2":
-                    this.gui.showRentResult(this.bookDB.rentBook(this.gui.readIsbn()));
+                    this.gui.showRentResult(this.bookDB.rentBook(this.gui.readIsbn(), this.authenticator.getLoggedUser().getLogin()));
                     break;
                 case "3":
                     isRunning = false;

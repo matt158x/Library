@@ -7,21 +7,49 @@ public class Book {
     private String author;
     private int isbn;
     private boolean rent;
+    private LocalDate date;
 
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
+
+    public String getUser() {
+        return user;
+    }
+
+    public void setUser(String user) {
+        this.user = user;
+    }
+
+    private String user;
 
 
     public Book(String title, String author, int isbn) {
         this.title = title;
         this.author = author;
         this.isbn = isbn;
-        this.rent = false;
     }
 
-    public Book(String title, String author, int isbn, boolean rent) {
+
+    public Book(String title, String author, int isbn, boolean rent, String user) {
         this.title = title;
         this.author = author;
         this.isbn = isbn;
         this.rent = rent;
+        this.user = user;
+    }
+
+    public Book(String title, String author, int isbn, boolean rent, String user, LocalDate date) {
+        this.title = title;
+        this.author = author;
+        this.isbn = isbn;
+        this.rent = rent;
+        this.user = user;
+        this.date = date;
     }
 
     public String getTitle() {
@@ -66,6 +94,8 @@ public class Book {
                 .append(this.getIsbn())
                 .append(" Dostepny: ")
                 .append(this.isRent() ? "Nie" : "Tak")
+                .append(" Username: ")
+                .append(this.getUser())
                 .toString();
     }
 

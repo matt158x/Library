@@ -34,8 +34,15 @@ public class BookDAO {
                 String author = rs.getString("author");
                 int isbn = rs.getInt("isbn");
                 boolean rent = rs.getBoolean("rent");
-                Book book = new Book(title,author,isbn,rent);
-                result.add(book);
+                String user = rs.getString("user");
+                try {
+                    LocalDate date = rs.getDate("rent_end").toLocalDate();
+                    Book book = new Book(title,author,isbn,rent,user,date);
+                    result.add(book);
+                } catch (NullPointerException e) {
+                }
+
+                //Book book = new Book(title,author,isbn,rent,user,date);
 
             }
         } catch (SQLException e) {
@@ -58,7 +65,9 @@ public class BookDAO {
                 String author = rs.getString("author");
                 int isbn = rs.getInt("isbn");
                 boolean rent = rs.getBoolean("rent");
-                Book book = new Book(title, author, isbn, rent);
+                String user = rs.getString("user");
+                LocalDate date = rs.getDate("rent_end").toLocalDate();
+                Book book = new Book(title,author,isbn,rent,user,date);
                 result.add(book);
             }
         } catch (SQLException e) {
@@ -69,7 +78,7 @@ public class BookDAO {
 
 
 
-    public boolean rentBook(String isbn) {
+    public boolean rentBook(String isbn, String user) {
         try {
             String sql = "SELECT * FROM tbook WHERE isbn = ?";
             PreparedStatement ps = this.connection.prepareStatement(sql);
@@ -78,7 +87,7 @@ public class BookDAO {
             if(rs.next()) {
                 boolean rent = rs.getBoolean("rent");
                 if (!rent) {
-                    String updateSql = "UPDATE tbook SET rent = ?, rent_end = ? WHERE id = ?";
+                    String updateSql = "UPDATE tbook SET rent = ?, rent_end = ?, user = ? WHERE id = ?";
                     int bookId = rs.getInt("id");
 
                     // calculate rent_end date
@@ -87,7 +96,9 @@ public class BookDAO {
                     PreparedStatement updatePs = this.connection.prepareStatement(updateSql);
                     updatePs.setBoolean(1, true);
                     updatePs.setDate(2, Date.valueOf(rentEnd));
-                    updatePs.setInt(3, bookId);
+                    updatePs.setString(3, user);
+                    updatePs.setInt(4, bookId);
+
 
                     updatePs.executeUpdate();
                     return true;
@@ -130,7 +141,9 @@ public class BookDAO {
                 String author = rs.getString("author");
                 int isbn = rs.getInt("isbn");
                 boolean rent = rs.getBoolean("rent");
-                Book book = new Book(title, author, isbn, rent);
+                String user = rs.getString("user");
+                LocalDate date = rs.getDate("rent_end").toLocalDate();
+                Book book = new Book(title,author,isbn,rent,user,date);
                 result.add(book);
             }
         } catch (SQLException e) {

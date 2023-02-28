@@ -6,7 +6,6 @@ import pl.edu.wszib.book.rent.model.Book;
 import pl.edu.wszib.book.rent.model.Thebook;
 import pl.edu.wszib.book.rent.model.User;
 
-//import pl.edu.wszib.car.rent.model.*;
 
 import java.util.List;
 import java.util.Scanner;
