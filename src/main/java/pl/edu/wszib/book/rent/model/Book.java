@@ -94,6 +94,8 @@ public class Book {
                 .append(this.getIsbn())
                 .append(" Dostepny: ")
                 .append(this.isRent() ? "Nie" : "Tak")
+                .append( " Data oddania: ")
+                .append( this.getDate())
                 .append(" Username: ")
                 .append(this.getUser())
                 .toString();
